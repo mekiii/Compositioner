@@ -1,8 +1,8 @@
 /*
 Ziel:
-- Zufällig erzeugte Kompositionen visualisieren 
-- Randomizer button
-- Goldener Schnitt
+- [X] Zufällig erzeugte Kompositionen visualisieren 
+- [X] Randomizer button
+- [X] Goldener Schnitt
 - Verwendung von 
   - vertikalen Achsen 
   - horizontale Achsen
@@ -26,7 +26,7 @@ let wWidth, wHeight;
 
 function setup() {
   wWidth = Math.round(random(400,windowWidth - 10));
-  wHeight = Math.round(random(400, windowHeight - 40));
+  wHeight = Math.round(random(400, windowHeight - 100));
   createCanvas(wWidth, wHeight);
   gMean = (sqrt(5) + 1 )/2
   goldenX1 = wWidth/(gMean+1);
@@ -35,9 +35,16 @@ function setup() {
   let NumOfPoints = Math.round(random(2,7));
   for (let i = 0; i < NumOfPoints; i++){
     if(i==0){
-      let randomX = randomGaussian(goldenX1, 100);
-      let randomY = randomGaussian(goldenY, 100);
-      randomPoints.push([randomX,randomY]);
+      if(random(0,1)> 0.5){
+        let randomX = randomGaussian(goldenX1, 70);
+        let randomY = randomGaussian(goldenY, 70);
+        randomPoints.push([randomX,randomY]);
+      }
+      else{
+        let randomX = randomGaussian(goldenX2, 70);
+        let randomY = randomGaussian(goldenY, 70);
+        randomPoints.push([randomX,randomY]);
+      }
     }
     else{
       let randomX = Math.round(random(120,wWidth - 120));
@@ -62,7 +69,7 @@ function draw() {
       fill(252,202,104, 50);
       ellipse(value[0], value[1], 40, 40);
       ellipse(value[0], value[1], 120, 120);
-      stroke(125,149,164, 150);
+      stroke(125,149,164, 70);
       line(value[0], 0, value[0], wHeight);
       line(0, value[1], wWidth,value[1]);
       textSize(14);
